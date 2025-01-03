@@ -1,6 +1,6 @@
 # Calendar App
 
-A communication management app with an admin panel for configuring company data and communication methods, and a user interface for tracking and managing communications.
+A communication management app built using **React.js** with an admin panel for configuring company data and communication methods, and a user interface for tracking and managing communications. **Bootstrap** is used for styling.
 
 [Live Demo](https://calender-app-entnt.netlify.app/)
 
@@ -35,9 +35,11 @@ A communication management app with an admin panel for configuring company data 
     ```bash
     npm start
     ```
+
 ---
 
 ## **Deployment**
 
 - View the live app here: [Calendar App](https://calender-app-entnt.netlify.app/).
 
+---
