@@ -1,0 +1,30 @@
+[
+    {
+        "id": 101,
+        "companyId": 1,
+        "methodId": 1,
+        "date": "2025-12-03",
+        "details": "Discussed Q4 results via email."
+    },
+    {
+        "id": 102,
+        "companyId": 1,
+        "methodId": 3,
+        "date": "2024-12-03",
+        "details": "Held a strategy meeting."
+    },
+    {
+        "id": 103,
+        "companyId": 2,
+        "methodId": 2,
+        "date": "2024-12-01",
+        "details": "Check-in call with Health Solutions."
+    },
+    {
+        "id": 104,
+        "companyId": 3,
+        "methodId": 4,
+        "date": "2024-12-04",
+        "details": "Quick chat about the proposal draft."
+    }
+]

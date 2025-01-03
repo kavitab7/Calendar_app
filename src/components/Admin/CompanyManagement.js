@@ -1,219 +1,174 @@
-import React, { useState } from 'react'
-import { actions, useAppContext } from '../../context/AppContext'
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { AppContext } from "../../context/AppContext";
+import { getCompanies } from "../../services/communicationService";
 
 const CompanyManagement = () => {
-    const { state, dispatch } = useAppContext();
-    const { companies } = state;
-
-    const [company, setCompany] = useState({
+    const { state, dispatch } = useContext(AppContext);
+    const [newCompany, setNewCompany] = useState({
         name: "",
         location: "",
-        linkedInProfile: "",
-        emails: "",
-        phoneNumbers: "",
+        contact: "",
+        linkedin: "",
+        phoneNumbers: [],
+        emails: [],
         comments: "",
         communicationPeriodicity: "",
-    })
+    });
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isEdit, setIsEdit] = useState(false);
+    const [editingCompanyId, setEditingCompanyId] = useState(null);
+    const nameInputRef = useRef(null);
 
-    const [isEditing, setIsEditing] = useState(false);
-    const [editId, setEditId] = useState(null);
+    useEffect(() => {
+        if (state.companies.length === 0) {
+            getCompanies()
+                .then((companies) => {
+                    dispatch({ type: "SET_COMPANIES", payload: companies });
+                })
+                .catch(() => setErrorMessage("Failed to load companies."));
+        }
+    }, [dispatch, state.companies.length]);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setCompany({ ...company, [name]: value });
-    }
+    const handleAddCompany = () => {
+        if (!newCompany.name || !newCompany.location || !newCompany.contact) {
+            setErrorMessage("Name, location, and contact are required!");
+            return;
+        }
 
-    //add or update company
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (isEditing) {
+        if (isEdit) {
             dispatch({
-                type: actions.UPDATE_COMPANY,
-                payload: { id: editId, ...company },
+                type: "UPDATE_COMPANY",
+                payload: { id: editingCompanyId, ...newCompany },
             });
-            setIsEditing(false);
-            setEditId(null);
+            setIsEdit(false);
+            setEditingCompanyId(null);
         } else {
             dispatch({
-                type: actions.ADD_COMPANY,
-                payload: { id: Date.now(), ...company },
-            })
+                type: "ADD_COMPANY",
+                payload: { id: Date.now(), ...newCompany },
+            });
         }
-        setCompany({
+
+        setNewCompany({
             name: "",
             location: "",
-            linkedInProfile: "",
-            emails: "",
-            phoneNumbers: "",
+            contact: "",
+            linkedin: "",
+            phoneNumbers: [],
+            emails: [],
             comments: "",
             communicationPeriodicity: "",
-        })
-    }
+        });
+        setErrorMessage("");
+        nameInputRef.current.focus();
+    };
 
-    //edit a company 
-    const handleEdit = (id) => {
-        const existingCompany = companies.find((comp) => comp.id);
-        setCompany(existingCompany)
-        setIsEditing(true);
-        setEditId(id)
-    }
+    const handleEditCompany = (company) => {
+        setNewCompany(company);
+        setIsEdit(true);
+        setEditingCompanyId(company.id);
+    };
 
-    //delete a company 
-    const handleDelete = (id) => {
-        dispatch({
-            type: actions.DELETE_COMPANY, payload: id
-        })
-    }
+    const handleDeleteCompany = (id) => {
+        if (window.confirm("Are you sure you want to delete this company?")) {
+            dispatch({ type: "DELETE_COMPANY", payload: id });
+        }
+    };
+
     return (
-        <div className="container mt-4">
-            <h2 className="text-center mb-4">Company Management</h2>
-            <form onSubmit={handleSubmit} className="mb-4">
-                <div className="row g-3">
-                    <div className="col-md-6">
-                        <label htmlFor="name" className="form-label">
-                            Company Name
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            className="form-control"
-                            value={company.name}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <label htmlFor="location" className="form-label">
-                            Location
-                        </label>
-                        <input
-                            type="text"
-                            id="location"
-                            name="location"
-                            className="form-control"
-                            value={company.location}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <label htmlFor="linkedInProfile" className="form-label">
-                            LinkedIn Profile
-                        </label>
-                        <input
-                            type="url"
-                            id="linkedInProfile"
-                            name="linkedInProfile"
-                            className="form-control"
-                            value={company.linkedInProfile}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <label htmlFor="emails" className="form-label">
-                            Emails
-                        </label>
-                        <input
-                            type="text"
-                            id="emails"
-                            name="emails"
-                            className="form-control"
-                            value={company.emails}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <label htmlFor="phoneNumbers" className="form-label">
-                            Phone Numbers
-                        </label>
-                        <input
-                            type="text"
-                            id="phoneNumbers"
-                            name="phoneNumbers"
-                            className="form-control"
-                            value={company.phoneNumbers}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <label htmlFor="communicationPeriodicity" className="form-label">
-                            Communication Periodicity (e.g., 2 weeks)
-                        </label>
-                        <input
-                            type="text"
-                            id="communicationPeriodicity"
-                            name="communicationPeriodicity"
-                            className="form-control"
-                            value={company.communicationPeriodicity}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="col-md-12">
-                        <label htmlFor="comments" className="form-label">
-                            Comments
-                        </label>
-                        <textarea
-                            id="comments"
-                            name="comments"
-                            className="form-control"
-                            rows="3"
-                            value={company.comments}
-                            onChange={handleChange}
-                        ></textarea>
+        <div className="container mt-5">
+            <h2 className="text-center mb-5 fw-bold">Company Management</h2>
+            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+            <div className="row justify-content-center">
+                <div className="col-12 col-md-6">
+                    <div className="card shadow-lg p-4 rounded">
+                        <h5 className="card-title text-primary text-center">{isEdit ? "Edit Company" : "Add New Company"}</h5>
+                        <div className="mb-3">
+                            <input
+                                ref={nameInputRef}
+                                type="text"
+                                className="form-control mb-2"
+                                placeholder="Company Name"
+                                value={newCompany.name}
+                                onChange={(e) => setNewCompany({ ...newCompany, name: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                className="form-control mb-2"
+                                placeholder="Location"
+                                value={newCompany.location}
+                                onChange={(e) => setNewCompany({ ...newCompany, location: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                className="form-control mb-2"
+                                placeholder="Contact Email"
+                                value={newCompany.contact}
+                                onChange={(e) => setNewCompany({ ...newCompany, contact: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                className="form-control mb-2"
+                                placeholder="LinkedIn Profile URL"
+                                value={newCompany.linkedin}
+                                onChange={(e) => setNewCompany({ ...newCompany, linkedin: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                className="form-control mb-2"
+                                placeholder="Communication Periodicity"
+                                value={newCompany.communicationPeriodicity}
+                                onChange={(e) => setNewCompany({ ...newCompany, communicationPeriodicity: e.target.value })}
+                            />
+                            <button className="btn btn-primary w-100" onClick={handleAddCompany}>
+                                {isEdit ? "Update Company" : "Add Company"}
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div className="text-center mt-3">
-                    <button type="submit" className="btn btn-primary">
-                        {isEditing ? "Update Company" : "Add Company"}
-                    </button>
-                </div>
-            </form>
+            </div>
 
-            <h3 className="text-center mb-3">Company List</h3>
-            <table className="table table-bordered table-hover">
-                <thead className="table-light">
-                    <tr>
-                        <th>Company Name</th>
-                        <th>Location</th>
-                        <th>LinkedIn Profile</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {companies.map((comp) => (
-                        <tr key={comp.id}>
-                            <td>{comp.name}</td>
-                            <td>{comp.location}</td>
-                            <td>
-                                <a href={comp.linkedInProfile} target="_blank" rel="noreferrer">
-                                    View Profile
-                                </a>
-                            </td>
-                            <td>
-                                <button
-                                    className="btn btn-sm btn-warning me-2"
-                                    onClick={() => handleEdit(comp.id)}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    className="btn btn-sm btn-danger"
-                                    onClick={() => handleDelete(comp.id)}
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className="mt-5">
+                <div className="table-responsive">
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Company Name</th>
+                                <th>Location</th>
+                                <th>Contact</th>
+                                <th>LinkedIn</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(state.companies) && state.companies.map((company, index) => (
+                                <tr key={company.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{company.name}</td>
+                                    <td>{company.location}</td>
+                                    <td>{company.contact}</td>
+                                    <td>
+                                        <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary">
+                                            LinkedIn Profile
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-warning btn-sm" onClick={() => handleEditCompany(company)}>
+                                            Edit
+                                        </button>
+                                        <button className="btn btn-danger btn-sm" onClick={() => handleDeleteCompany(company.id)}>
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 };
 
-export default CompanyManagement
+export default CompanyManagement;

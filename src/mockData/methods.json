@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "LinkedIn Post",
+        "description": "Public post on LinkedIn to engage with the company.",
+        "sequence": 1,
+        "mandatory": true
+    },
+    {
+        "id": 2,
+        "name": "LinkedIn Message",
+        "description": "Direct message sent through LinkedIn.",
+        "sequence": 2,
+        "mandatory": false
+    },
+    {
+        "id": 3,
+        "name": "Email",
+        "description": "Email sent to the company for follow-up communication.",
+        "sequence": 3,
+        "mandatory": true
+    },
+    {
+        "id": 4,
+        "name": "Phone Call",
+        "description": "Direct phone call to discuss matters personally.",
+        "sequence": 4,
+        "mandatory": false
+    },
+    {
+        "id": 5,
+        "name": "Other",
+        "description": "Any other method of communication (e.g., SMS, Postal).",
+        "sequence": 5,
+        "mandatory": false
+    }
+]

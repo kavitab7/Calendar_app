@@ -1,0 +1,197 @@
+[
+    {
+        "id": 1,
+        "name": "Tech Corp",
+        "industry": "Technology",
+        "location": "San Francisco, CA",
+        "contact": "techcorp@example.com",
+        "linkedin": "https://www.linkedin.com/company/tech-corp",
+        "phoneNumbers": [
+            "+1-555-1234",
+            "+1-555-5678"
+        ],
+        "emails": [
+            "techcorp@example.com",
+            "support@techcorp.com"
+        ],
+        "comments": "Tech Corp is a leader in the technology space.",
+        "communicationPeriodicity": "Every 2 weeks",
+        "lastCommunications": [
+            {
+                "type": "Email",
+                "date": "2024-12-01",
+                "notes": "Follow-up email"
+            },
+            {
+                "type": "Phone",
+                "date": "2024-12-02",
+                "notes": "Initial discussion"
+            },
+            {
+                "type": "Meeting",
+                "date": "2024-12-03",
+                "notes": "Strategy meeting"
+            }
+        ],
+        "nextCommunication": {
+            "type": "Phone",
+            "date": "2025-01-10",
+            "notes": "Progress update"
+        },
+        "highlight": "yellow",
+        "isCommunicationLogged": false
+    },
+    {
+        "id": 2,
+        "name": "Green Ventures",
+        "industry": "Environment",
+        "location": "Portland, OR",
+        "contact": "contact@greenventures.com",
+        "linkedin": "https://www.linkedin.com/company/green-ventures",
+        "phoneNumbers": [
+            "+1-555-9876",
+            "+1-555-6543"
+        ],
+        "emails": [
+            "contact@greenventures.com",
+            "support@greenventures.com"
+        ],
+        "comments": "Green Ventures is focused on sustainable development and environmental solutions.",
+        "communicationPeriodicity": "Every 3 weeks",
+        "lastCommunications": [
+            {
+                "type": "LinkedIn Post",
+                "date": "2024-11-15",
+                "notes": "Promoted new sustainability report"
+            },
+            {
+                "type": "Email",
+                "date": "2024-11-18",
+                "notes": "Sent quarterly updates"
+            }
+        ],
+        "nextCommunication": {
+            "type": "Phone",
+            "date": "2025-01-05",
+            "notes": "Review sustainability initiatives"
+        },
+        "highlight": "red",
+        "isCommunicationLogged": false
+    },
+    {
+        "id": 3,
+        "name": "Design Works",
+        "industry": "Design",
+        "location": "Los Angeles, CA",
+        "contact": "info@designworks.com",
+        "linkedin": "https://www.linkedin.com/company/design-works",
+        "phoneNumbers": [
+            "+1-555-4321",
+            "+1-555-8765"
+        ],
+        "emails": [
+            "info@designworks.com",
+            "support@designworks.com"
+        ],
+        "comments": "Design Works specializes in graphic and web design services for businesses.",
+        "communicationPeriodicity": "Monthly",
+        "lastCommunications": [
+            {
+                "type": "Meeting",
+                "date": "2024-11-30",
+                "notes": "Discussed new project proposals"
+            },
+            {
+                "type": "Phone",
+                "date": "2024-11-25",
+                "notes": "Initial project discussion"
+            }
+        ],
+        "nextCommunication": {
+            "type": "Email",
+            "date": "2025-01-12",
+            "notes": "Project updates and feedback"
+        },
+        "highlight": "yellow",
+        "isCommunicationLogged": false
+    },
+    {
+        "id": 4,
+        "name": "Future Innovations",
+        "industry": "Technology",
+        "location": "Austin, TX",
+        "contact": "info@futureinnovations.com",
+        "linkedin": "https://www.linkedin.com/company/future-innovations",
+        "phoneNumbers": [
+            "+1-555-1122",
+            "+1-555-3344"
+        ],
+        "emails": [
+            "info@futureinnovations.com",
+            "support@futureinnovations.com"
+        ],
+        "comments": "Future Innovations develops cutting-edge AI technology and solutions.",
+        "communicationPeriodicity": "Every 4 weeks",
+        "lastCommunications": [
+            {
+                "type": "LinkedIn Post",
+                "date": "2024-11-22",
+                "notes": "Shared a case study on AI applications"
+            },
+            {
+                "type": "Email",
+                "date": "2024-11-20",
+                "notes": "Product update email"
+            },
+            {
+                "type": "Phone",
+                "date": "2024-11-18",
+                "notes": "Discussed partnership opportunities"
+            }
+        ],
+        "nextCommunication": {
+            "type": "Phone",
+            "date": "2025-01-20",
+            "notes": "Follow-up on AI product updates"
+        },
+        "highlight": "red",
+        "isCommunicationLogged": false
+    },
+    {
+        "id": 5,
+        "name": "Retail Hub",
+        "industry": "Retail",
+        "location": "Chicago, IL",
+        "contact": "contact@retailhub.com",
+        "linkedin": "https://www.linkedin.com/company/retail-hub",
+        "phoneNumbers": [
+            "+1-555-2233",
+            "+1-555-4455"
+        ],
+        "emails": [
+            "contact@retailhub.com",
+            "support@retailhub.com"
+        ],
+        "comments": "Retail Hub offers a platform for retailers to sell their products online.",
+        "communicationPeriodicity": "Every 5 weeks",
+        "lastCommunications": [
+            {
+                "type": "Phone",
+                "date": "2024-11-10",
+                "notes": "Customer service follow-up"
+            },
+            {
+                "type": "Meeting",
+                "date": "2024-11-08",
+                "notes": "Discussed marketing strategies"
+            }
+        ],
+        "nextCommunication": {
+            "type": "Meeting",
+            "date": "2025-01-30",
+            "notes": "Marketing strategy meeting"
+        },
+        "highlight": "yellow",
+        "isCommunicationLogged": false
+    }
+]
